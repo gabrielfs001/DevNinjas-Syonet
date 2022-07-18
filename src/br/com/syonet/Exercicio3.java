@@ -22,3 +22,5 @@ public class Exercicio3 {
 	}
 
 }
+//String nome = "Teste";
+//System.out.println(nome.replaceAll("[aeiouAEIOU]",""));

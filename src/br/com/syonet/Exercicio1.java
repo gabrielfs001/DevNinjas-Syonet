@@ -15,3 +15,15 @@ public class Exercicio1 {
 	}
 
 }
+
+/*
+ * -- Correção --
+ * int gastos[] = {15000, 23000, 17000};
+ * int total = 0;
+ * for ( int gasto : gastos ) {
+ * 		total += gasto;
+ * }
+ * int medio = total / gastos.length;
+ * System.out.println("Total " + total);
+ * System.out.println("Media " +media);
+ */
