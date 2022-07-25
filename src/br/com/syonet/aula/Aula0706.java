@@ -1,4 +1,4 @@
-package br.com.syonet;
+package br.com.syonet.aula;
 
 public class Aula0706 {
 

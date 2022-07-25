@@ -1,4 +1,4 @@
-package br.com.syonet;
+package br.com.syonet.aula;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package br.com.syonet.poo;
+package br.com.syonet.aula.poo;
 
 public class Caminhao extends Veiculo{
 	private String marca;

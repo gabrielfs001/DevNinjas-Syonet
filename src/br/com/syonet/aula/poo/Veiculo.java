@@ -1,4 +1,4 @@
-package br.com.syonet.poo;
+package br.com.syonet.aula.poo;
 
 
 //Pai
