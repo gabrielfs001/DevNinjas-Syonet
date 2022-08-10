@@ -9,9 +9,9 @@ public class Exercicio4 {
 
 	public static void main(String[] args) {
 		// Implemente um método que recebe uma lista de veículos que possuem chassi, marca e modelo,  e um chassi e retorne o veículo que possua o chassi;
-		Veiculo veiculo1 = new Veiculo(null, "Toyota", "Corolla");
-		Veiculo veiculo2 = new Veiculo(020310105, "Nissan", "Kicks");
-		Veiculo veiculo3 = new Veiculo(0102030405, "Teste1", "teste2");
+		Veiculo veiculo1 = new Veiculo("050412045", "Toyota", "Corolla");
+		Veiculo veiculo2 = new Veiculo("020310105", "Nissan", "Kicks");
+		Veiculo veiculo3 = new Veiculo("0102030405", "Teste1", "teste2");
 		List <Veiculo> veiculos = new ArrayList <Veiculo> ();
 		veiculos.add(veiculo1);
 		veiculos.add(veiculo2);
