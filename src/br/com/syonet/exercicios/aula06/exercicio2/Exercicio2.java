@@ -16,14 +16,11 @@ public class Exercicio2 {
 	}
 	
 	private static Integer retornaSomaValores( List <Veiculo> veiculos ) {
-		List<Integer> valoresVeiculos = veiculos.stream()
+		Integer valoresVeiculos = veiculos.stream()
 			.map(veiculo -> veiculo.getValor())
-			.collect(Collectors.toList());
-		
-		Integer somaTotal = valoresVeiculos.stream()
-				.reduce(0, Integer::sum);
-		return somaTotal;
-		
+			.reduce(0, Integer::sum);
+
+		return valoresVeiculos;
 	}
 	
 }

@@ -19,6 +19,7 @@ public class Exercicio5 {
 	private static List<String> retornaListaPlacas( List <Veiculo> veiculos ) {
 		return veiculos.stream()
 				.map(veiculo -> veiculo.getPlaca())
+				.distinct()
 				.collect(Collectors.toList());
 	}
 }

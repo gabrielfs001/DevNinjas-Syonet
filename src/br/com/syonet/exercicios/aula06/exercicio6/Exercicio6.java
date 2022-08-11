@@ -20,7 +20,7 @@ public class Exercicio6 {
 	private static List<Veiculo> ordenaVeiculosPorValor(List<Veiculo> veiculos){
 		Comparator<Veiculo> comparator = Comparator.comparing( Veiculo::getValor);
 		return veiculos.stream()
-				.sorted(comparator)
+				.sorted(comparator.reversed())
 				.collect(Collectors.toList());
 	}
 }
