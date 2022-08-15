@@ -2,7 +2,6 @@ package br.com.syonet.exercicios.aula06.exercicio2;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Exercicio2 {
 
