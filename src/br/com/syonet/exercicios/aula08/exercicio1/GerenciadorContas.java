@@ -1,0 +1,80 @@
+package br.com.syonet.exercicios.aula08.exercicio1;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import br.com.syonet.exercicios.aula07.exercicio1.ContaNaoEncontradaException;
+import br.com.syonet.exercicios.aula07.exercicio1.SaldoInsuficienteException;
+
+public class GerenciadorContas {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Titular titular1 = new Titular("03696184080", "Gabriel TESTE");
+		Titular titular2 = new Titular("14253678910", "Titular2 TESTE");
+		Titular titular3 = new Titular("41526398701", "Titular3 TESTE");
+		List<Conta> listaDeContas = Arrays.asList(new Conta("Banco Syonet", 1223, 1234, 987654321, 50000d, TipoDeContaEnum.CONTACORRENTE, titular1),
+			new Conta("Banco do Brasil", 3221, 4321, 987987987, 100000d, TipoDeContaEnum.CONTAPOUPANCA, titular1),
+			new Conta("Banco do Brasil", 3221, 4321, 987987986, 150000d, TipoDeContaEnum.CONTACORRENTE, titular1),
+			new Conta("Banco do Brasil", 3221, 4321, 456654456, 30000d, TipoDeContaEnum.CONTACORRENTE, titular2),
+			new Conta("Banco do Brasil", 3221, 4321, 123321123, 1500d, TipoDeContaEnum.CONTASALARIO, titular3));
+		
+		try {
+			contasPorCpf(listaDeContas, "03696184080").forEach(System.out::println);
+		} catch (ContaNaoEncontradaException e) {
+			e.printStackTrace();
+		}
+		try {
+			consultaConta(listaDeContas, "Banco do Brasil", 4321, 987987987).forEach(System.out::println);
+		} catch (ContaNaoEncontradaException e) {
+			e.printStackTrace();
+		}
+		try {
+			saqueConta(listaDeContas, "Banco do Brasil", 4321, 987987987, 10000d).forEach(System.out::println);
+		} catch (ContaNaoEncontradaException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static List<Conta> contasPorCpf(List<Conta> listaDeContas, String cpf) throws ContaNaoEncontradaException {
+		List<Conta> contasFiltradas = listaDeContas.stream()
+				.filter(conta -> conta.getTitular().getCpf().equals(cpf))
+				.collect(Collectors.toList());
+		if (contasFiltradas.isEmpty()) {
+			throw new ContaNaoEncontradaException("Conta não encontrada.");
+		}else {
+			return contasFiltradas;
+		}
+	}
+	
+	private static List<Conta> consultaConta(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta) throws ContaNaoEncontradaException {
+		List<Conta> contasFiltradas = listaDeContas.stream()
+				.filter(conta -> conta.getBanco().equals(banco))
+				.filter(conta -> conta.getAgencia().equals(agencia))
+				.filter(conta -> conta.getNumeroConta().equals(numeroConta))
+				.collect(Collectors.toList());
+		if (contasFiltradas.isEmpty()) {
+			throw new ContaNaoEncontradaException("Conta não encontrada.");
+		}else {
+			return contasFiltradas;
+		}
+	}
+
+	private static List<Conta> saqueConta(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta, Double valorSaque) throws SaldoInsuficienteException {
+		List<Conta> contasFiltradas = listaDeContas.stream()
+				.filter(conta -> conta.getBanco().equals(banco))
+				.filter(conta -> conta.getAgencia().equals(agencia))
+				.filter(conta -> conta.getNumeroConta().equals(numeroConta))
+				.collect(Collectors.toList());
+		if ((contasFiltradas.get(0).getSaldo() - valorSaque) < 0) {
+			throw new SaldoInsuficienteException("Saldo insuficiente para saque!");
+		}else {
+			contasFiltradas.get(0).setSaldo(contasFiltradas.get(0).getSaldo() - valorSaque);
+			return contasFiltradas;
+		}
+	}
+	
+	
+}
