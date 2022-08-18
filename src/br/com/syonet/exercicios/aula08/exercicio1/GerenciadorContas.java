@@ -63,11 +63,7 @@ public class GerenciadorContas {
 	}
 	
 	private static Optional<Conta> saqueContaOptional(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta, Double valorSaque) throws SaldoInsuficienteException {
-		Optional<Conta> contasFiltradas = listaDeContas.stream()
-				.filter(conta -> conta.getBanco().equals(banco))
-				.filter(conta -> conta.getAgencia().equals(agencia))
-				.filter(conta -> conta.getNumeroConta().equals(numeroConta))
-				.findFirst();
+		Optional<Conta> contasFiltradas = consultaContaOptional(listaDeContas, banco, agencia, numeroConta);
 		if (contasFiltradas.get().getSaldo() < valorSaque) {
 			throw new SaldoInsuficienteException("Saldo insuficiente para saque!");
 		}else {
