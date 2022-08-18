@@ -27,12 +27,12 @@ public class GerenciadorContas {
 			e.printStackTrace();
 		}
 		try {
-			consultaConta(listaDeContas, "Banco do Brasil", 4321, 987987987).forEach(System.out::println);
+			System.out.println(consultaContaOptional(listaDeContas, "Banco do Brasil", 4321, 987987987));
 		} catch (ContaNaoEncontradaException e) {
 			e.printStackTrace();
 		}
 		try {
-			saqueConta(listaDeContas, "Banco do Brasil", 4321, 987987987, 10000d).forEach(System.out::println);
+			System.out.println(saqueContaOptional(listaDeContas, "Banco do Brasil", 4321, 987987987, 10000d));
 		} catch (ContaNaoEncontradaException e) {
 			e.printStackTrace();
 		}
@@ -49,29 +49,29 @@ public class GerenciadorContas {
 		}
 	}
 	
-	private static List<Conta> consultaConta(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta) throws ContaNaoEncontradaException {
-		List<Conta> contasFiltradas = listaDeContas.stream()
+	private static Optional<Conta> consultaContaOptional(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta) throws ContaNaoEncontradaException {
+		Optional<Conta> contasFiltradas = listaDeContas.stream()
 				.filter(conta -> conta.getBanco().equals(banco))
 				.filter(conta -> conta.getAgencia().equals(agencia))
 				.filter(conta -> conta.getNumeroConta().equals(numeroConta))
-				.collect(Collectors.toList());
+				.findFirst();
 		if (contasFiltradas.isEmpty()) {
 			throw new ContaNaoEncontradaException("Conta não encontrada.");
 		}else {
 			return contasFiltradas;
 		}
 	}
-
-	private static List<Conta> saqueConta(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta, Double valorSaque) throws SaldoInsuficienteException {
-		List<Conta> contasFiltradas = listaDeContas.stream()
+	
+	private static Optional<Conta> saqueContaOptional(List<Conta> listaDeContas, String banco, Integer agencia, Integer numeroConta, Double valorSaque) throws SaldoInsuficienteException {
+		Optional<Conta> contasFiltradas = listaDeContas.stream()
 				.filter(conta -> conta.getBanco().equals(banco))
 				.filter(conta -> conta.getAgencia().equals(agencia))
 				.filter(conta -> conta.getNumeroConta().equals(numeroConta))
-				.collect(Collectors.toList());
-		if ((contasFiltradas.get(0).getSaldo() - valorSaque) < 0) {
+				.findFirst();
+		if (contasFiltradas.get().getSaldo() < valorSaque) {
 			throw new SaldoInsuficienteException("Saldo insuficiente para saque!");
 		}else {
-			contasFiltradas.get(0).setSaldo(contasFiltradas.get(0).getSaldo() - valorSaque);
+			contasFiltradas.get().setSaldo(contasFiltradas.get().getSaldo() - valorSaque);
 			return contasFiltradas;
 		}
 	}
