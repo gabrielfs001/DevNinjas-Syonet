@@ -1,6 +1,6 @@
 package br.com.syonet.exercicios.aula08.exercicio1;
 
-public class ContaNaoEncontradaException extends RuntimeException{
+public class ContaNaoEncontradaException extends Exception{
 
 	/**
 	 * 

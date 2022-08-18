@@ -1,6 +1,6 @@
 package br.com.syonet.exercicios.aula08.exercicio1;
 
-public class SaldoInsuficienteException extends RuntimeException{
+public class SaldoInsuficienteException extends Exception{
 
 	/**
 	 * 
